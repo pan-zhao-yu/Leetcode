@@ -1,13 +1,13 @@
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        int length = matrix.length;
-        int lineLength = matrix[0].length;
+        int row = matrix.length;
+        int col = matrix[0].length;
         int left = 0;
-        int right = length * lineLength - 1;
+        int right = row * col - 1;
         
         while(left <= right){
             int mid = left + (right - left) / 2;
-            int midValue = matrix[mid / lineLength][mid % lineLength];
+            int midValue = matrix[mid / col][mid % col];
             if(target == midValue){
                 return true;
             }else if(target < midValue){
