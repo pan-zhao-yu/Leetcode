@@ -19,12 +19,12 @@ class Solution {
             right = right.next.next;
         }
         
-        ListNode curr = left, pre = null, next = null;
-        while(curr != null){
-            next = curr.next;
-            curr.next = pre;
-            pre = curr;
-            curr = next;
+        ListNode pre = null, next;
+        while(left != null){
+            next = left.next;
+            left.next = pre;
+            pre = left;
+            left = next;
         }
         
         while(pre != null && head != null){
