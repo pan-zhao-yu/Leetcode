@@ -16,7 +16,7 @@
 class Solution {
     
     private int result = Integer.MAX_VALUE;
-    private TreeNode prev;
+    private TreeNode prev = null;
     
     public int minDiffInBST(TreeNode root) {
         dfs(root);
