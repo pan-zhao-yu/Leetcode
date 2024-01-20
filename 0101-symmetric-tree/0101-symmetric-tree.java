@@ -29,9 +29,9 @@ class Solution {
             return false;
         }
         
-        if(lTree.val == rTree.val && dfs(lTree.left, rTree.right) && dfs(lTree.right, rTree.left)){
-            return true;
-        }
-        return false;
+        return lTree.val == rTree.val && 
+            dfs(lTree.left, rTree.right) && 
+            dfs(lTree.right, rTree.left);
+
     }
 }
