@@ -22,7 +22,7 @@ class Solution {
             }
         }
         
-        ListNode dummy = new ListNode(0);
+        ListNode dummy = new ListNode();
         ListNode curr = dummy;
         while(!queue.isEmpty()){
             ListNode temp = queue.poll();
