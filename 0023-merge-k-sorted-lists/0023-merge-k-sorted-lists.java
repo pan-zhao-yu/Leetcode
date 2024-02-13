@@ -15,15 +15,15 @@ class Solution {
         }
         
         PriorityQueue<ListNode> queue = new PriorityQueue<>((a, b) -> a.val - b.val);
-        
         for(ListNode node : lists){
             if(node != null){
                 queue.offer(node);
-            }
+            }  
         }
         
         ListNode dummy = new ListNode();
         ListNode curr = dummy;
+        
         while(!queue.isEmpty()){
             ListNode temp = queue.poll();
             curr.next = temp;
