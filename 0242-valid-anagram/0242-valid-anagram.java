@@ -1,31 +1,22 @@
 class Solution {
     public boolean isAnagram(String s, String t) {
-        if (s.length() != t.length()) {
-            return false;
+        if(s.length() != t.length()) return false;
+        HashMap<Character, Integer> map = new HashMap<>();
+        for(char ch : s.toCharArray()){
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
         }
-
-        Map<Character, Integer> charFrequency = new HashMap<>();
-
-        // Count the frequency of characters in s
-        for (char c : s.toCharArray()) {
-            charFrequency.put(c, charFrequency.getOrDefault(c, 0) + 1);
-        }
-
-        // Decrement the frequency of characters in t
-        for (char c : t.toCharArray()) {
-            if (!charFrequency.containsKey(c)) {
-                return false; // Character not present in s
+        for(char c : t.toCharArray()){
+            if(!map.containsKey(c)){
+                return false;
             }
-
-            int newCount = charFrequency.get(c) - 1;
-            if (newCount == 0) {
-                charFrequency.remove(c);
-            } else {
-                charFrequency.put(c, newCount);
+            int n = map.get(c) - 1;
+            if(n == 0){
+                map.remove(c);
+            }else{
+                map.put(c, n);
             }
         }
-
-        return charFrequency.isEmpty();
+            return map.isEmpty();
     }
 }
 
