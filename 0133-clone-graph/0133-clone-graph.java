@@ -20,7 +20,6 @@ class Node {
 
 class Solution {
     HashMap<Node, Node> visited = new HashMap<>();
-    
     public Node cloneGraph(Node node) {
         /*
         dfs /bfs to traverse the original graph and create copy and its neighbors.
