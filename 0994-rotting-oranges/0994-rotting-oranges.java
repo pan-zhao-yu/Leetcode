@@ -1,18 +1,3 @@
-// class Solution {
-//     public int orangesRotting(int[][] grid) {
-//         int nRows = grid.length;
-//         int nCols = grid[0].length;
-//         Queue<int[]> queue = new LikedList<>();
-//         int fresh = 0;
-        
-//         for(int i = 0; i < m; i += 1){
-//             for(int j = 0; j < n; j + 1){
-//                 if(grid[i][j] == 2) queue.offer(new int[]{i, j});
-//                 else if(grid[i][j] == 1) fresh += 1;
-//             }
-//         }
-//     }
-// }
 
 
 class Solution {
