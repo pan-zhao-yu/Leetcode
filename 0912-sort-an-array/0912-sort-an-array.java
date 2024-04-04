@@ -13,29 +13,28 @@ class Solution {
     }
     
     private void merge(int[] nums, int low, int mid, int high){
-        int[] temp = new int[nums.length];
+        ArrayList<Integer> arr = new ArrayList<>();
         int left = low;
         int right = mid + 1;
-        int index = low;
-
         while(left <= mid && right <= high){
             if(nums[left] < nums[right]){
-                temp[index++] = nums[left++];
+                arr.add(nums[left]);
+                left++;
             }else{
-                temp[index++] = nums[right++];
+                arr.add(nums[right]);
+                right++;
             }
         }
-        
         while(left <= mid){
-            temp[index++] = nums[left++];
+            arr.add(nums[left]);
+            left++;
         }
-        
         while(right <= high){
-            temp[index++] = nums[right++];
+            arr.add(nums[right]);
+            right++;
         }
-
         for(int i = low; i <= high; i++){
-            nums[i] = temp[i];
+            nums[i] = arr.get(i - low);
         }
     }
 }
