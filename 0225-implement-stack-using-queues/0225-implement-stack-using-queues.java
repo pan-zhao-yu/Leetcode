@@ -10,17 +10,17 @@ class MyStack {
     
     public void push(int x) {
         queue2.offer(x);
-        top = x;
         while(!queue1.isEmpty()){
             queue2.offer(queue1.poll());
         }
         Queue<Integer> temp = queue1;
         queue1 = queue2;
         queue2 = temp;
-        
+        top = queue1.peek();
     }
     
     public int pop() {
+        if(queue1.isEmpty()) return -1;
         int popped = queue1.poll();
         if(!queue1.isEmpty()){
             top = queue1.peek();
@@ -28,6 +28,7 @@ class MyStack {
             top = -1;
         }
         return popped;
+        
     }
     
     public int top() {
