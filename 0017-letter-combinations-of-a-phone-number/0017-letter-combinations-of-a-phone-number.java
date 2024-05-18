@@ -19,7 +19,7 @@ class Solution {
     }
     
     private void backtrack(List<String> result, StringBuilder temp, String digits, int start){
-        if(start == digits.length()) {
+        if(start == digits.length()){
             result.add(temp.toString());
             return;
         }
