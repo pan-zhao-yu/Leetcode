@@ -4,15 +4,12 @@ class Solution {
         int right = 0;
         int sum = 0;
         int minLen = Integer.MAX_VALUE;
-        
         while(right < nums.length){
             sum += nums[right++];
-            
             while(sum >= target){
                 minLen = Math.min(minLen, right - left);
                 sum -= nums[left++];
             }
-            
         }
         return minLen == Integer.MAX_VALUE ? 0 : minLen;
     }
