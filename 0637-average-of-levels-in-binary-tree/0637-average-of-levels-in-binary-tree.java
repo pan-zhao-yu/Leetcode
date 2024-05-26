@@ -20,8 +20,8 @@ class Solution {
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         while(!queue.isEmpty()){
-            int levelSize = queue.size();
             double levelSum = 0;
+            int levelSize = queue.size();
             for(int i = 0; i < levelSize; i++){
                 TreeNode temp = queue.poll();
                 levelSum += temp.val;
