@@ -5,10 +5,10 @@ class Solution {
             maxHeap.offer(s);
         }
         while(maxHeap.size() > 1){
-            int s1 = maxHeap.poll();
-            int s2 = maxHeap.poll();
-            if(s1 != s2){
-                maxHeap.add(s1 - s2);
+            int stone1 = maxHeap.poll();
+            int stone2 = maxHeap.poll();
+            if(stone1 != stone2){
+                maxHeap.offer(stone1 - stone2);
             }
         }
         return maxHeap.size() == 0 ? 0 : maxHeap.poll();
