@@ -7,12 +7,8 @@ class KthLargest {
     }
     
     public int add(int val) {
-        if(minHeap.size() < k){
-            minHeap.offer(val);
-        }else{
-            minHeap.offer(val);
-            minHeap.poll();
-        }
+        minHeap.offer(val);
+        if(minHeap.size() > k) minHeap.poll();
         return minHeap.peek();
     }
 }
