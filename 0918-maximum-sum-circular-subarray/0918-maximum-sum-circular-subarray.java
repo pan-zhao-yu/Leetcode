@@ -16,8 +16,8 @@ class Solution {
             minCurr = Math.min(nums[i], minCurr + nums[i]);
             minSum = Math.min(minSum, minCurr);
         }
-        int circularMaxSub = totalSum - minSum;
         if(totalSum == minSum) return maxSub;
+        int circularMaxSub = totalSum - minSum; 
         return Math.max(circularMaxSub, maxSub);
     }
 }
