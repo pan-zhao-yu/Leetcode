@@ -1,25 +1,17 @@
-import java.util.Stack;
-
-public class Solution {
+class Solution {
     public boolean isValid(String s) {
-    
-        Stack <Character> stack = new Stack<>();
-        HashMap<Character, Character> map = new HashMap<>();
-
-        map.put('(', ')');
-        map.put('{', '}');
-        map.put('[', ']');
-
+        Stack<Character> stack = new Stack<>();
         for(char c : s.toCharArray()){
-            if(map.containsKey(c)){
+            if(c == '(' || c == '{' || c == '['){
                 stack.push(c);
             }else{
-                if(stack.isEmpty() || map.get(stack.pop()) != c){
-                    return false;
-                }
+                if(stack.isEmpty() || !isValid(stack.pop(), c)) return false;
             }
         }
         return stack.isEmpty();
     }
+    
+    private boolean isValid(char open, char close){
+        return (open == '(' && close == ')') || (open == '{' && close == '}') || (open == '[' && close == ']');
+    }
 }
-
