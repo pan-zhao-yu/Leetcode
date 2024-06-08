@@ -14,7 +14,9 @@ class MinStack {
     }
     
     public void pop() {
+        Node temp = head;
         head = head.next;
+        temp = null;
     }
     
     public int top() {
