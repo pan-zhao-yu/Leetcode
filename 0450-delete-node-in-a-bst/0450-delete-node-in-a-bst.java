@@ -15,32 +15,28 @@
  */
 class Solution {
     public TreeNode deleteNode(TreeNode root, int key) {
-        if(root == null){
-            return root;
-        }
-        
+        if(root == null) return root;
         if(key < root.val){
             root.left = deleteNode(root.left, key);
         }else if(key > root.val){
             root.right = deleteNode(root.right, key);
         }else{
-            if(root.left == null){
-                return root.right;
-            }else if(root.right == null){
+            if(root.right == null){
                 return root.left;
+            }else if(root.left == null){
+                return root.right;
+            }else{
+                int minival = miniVal(root.right);
+                root.val = minival;
+                root.right = deleteNode(root.right, minival);
             }
-            
-        root.val = minValue(root.right);
-        root.right = deleteNode(root.right, root.val);
         }
         return root;
     }
-
-    
-    private int minValue(TreeNode root){
-        while(root.left != null){
-            root = root.left;
+    private int miniVal(TreeNode node){
+        while(node.left != null){
+            node = node.left;
         }
-        return root.val;
+        return node.val;
     }
 }
