@@ -35,13 +35,12 @@ class Solution {
         }
         return root;
     }
+
     
     private int minValue(TreeNode root){
-        int minValue = root.val;
         while(root.left != null){
-            minValue = root.left.val;
             root = root.left;
         }
-        return minValue;
+        return root.val;
     }
 }
