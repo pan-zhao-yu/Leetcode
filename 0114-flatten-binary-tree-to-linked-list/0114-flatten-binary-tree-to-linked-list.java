@@ -15,27 +15,16 @@
  */
 class Solution {
     public void flatten(TreeNode root) {
-        if (root == null) return;
-        
-        // Recursively flatten the left and right subtrees
+        if(root == null) return;
         flatten(root.left);
         flatten(root.right);
-        
-        // Store the left and right subtrees
-        TreeNode leftSubtree = root.left;
-        TreeNode rightSubtree = root.right;
-        
-        // Make the left subtree the right subtree
+        TreeNode leftTree = root.left;
+        TreeNode rightTree = root.right;
+        root.right = leftTree;
         root.left = null;
-        root.right = leftSubtree;
-        
-        // Find the end of the new right subtree
-        TreeNode current = root;
-        while (current.right != null) {
-            current = current.right;
+        while(root.right != null){
+            root = root.right;
         }
-        
-        // Attach the original right subtree to the end of the new right subtree
-        current.right = rightSubtree;
+        root.right = rightTree;
     }
 }
