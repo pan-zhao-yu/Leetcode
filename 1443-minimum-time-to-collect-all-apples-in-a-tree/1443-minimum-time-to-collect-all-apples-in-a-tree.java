@@ -1,3 +1,4 @@
+
 public class Solution {
     public int minTime(int n, int[][] edges, List<Boolean> hasApple) {
         // Step 1: Build the tree using an adjacency list
