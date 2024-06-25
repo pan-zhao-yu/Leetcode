@@ -14,6 +14,7 @@
  * }
  */
 class Solution {
+    Map<Integer, List<TreeNode>> memo = new HashMap<>();
     public List<TreeNode> allPossibleFBT(int n) {
         List<TreeNode> result = new ArrayList<>();
         if(n == 1){
@@ -23,6 +24,10 @@ class Solution {
         if(n % 2 != 1){
             return result;
         }
+        if(memo.containsKey(n)){
+            return memo.get(n);
+        }
+        
         for(int leftSize = 1; leftSize < n; leftSize+= 2){
             int rightSize = n - 1 - leftSize;
             List<TreeNode> leftTrees = allPossibleFBT(leftSize);
@@ -36,6 +41,7 @@ class Solution {
                 }
             }
         }
+        memo.put(n, result);
         return result;
     }
 }
