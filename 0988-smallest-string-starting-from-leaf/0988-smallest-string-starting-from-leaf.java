@@ -13,35 +13,26 @@
  *     }
  * }
  */
-public class Solution {
-    private String smallestString;
-
+class Solution {
+    String smallest;
     public String smallestFromLeaf(TreeNode root) {
-        if (root == null) return "";
-        smallestString = "~";  // "~" is lexicographically larger than any lower case letter string
+        if(root == null) return "";
+        smallest = "~";
         dfs(root, new StringBuilder());
-        return smallestString;
+        return smallest;
     }
-
-    private void dfs(TreeNode node, StringBuilder currentPath) {
-        if (node == null) return;
-
-        // Prepend current character to the path (we are building the string from leaf to root)
-        currentPath.insert(0, (char) ('a' + node.val));
-
-        // If it's a leaf node, compare and update the smallest string if necessary
-        if (node.left == null && node.right == null) {
-            String currentString = currentPath.toString();
-            if (currentString.compareTo(smallestString) < 0) {
-                smallestString = currentString;
+    private void dfs(TreeNode node, StringBuilder curr){
+        if(node == null) return;
+        curr.insert(0, (char)('a' + node.val));
+        if(node.left == null && node.right == null){
+            String currString = curr.toString();
+            if(currString.compareTo(smallest) < 0){
+                smallest = currString;
             }
-        } else {
-            // Continue DFS on child nodes
-            dfs(node.left, currentPath);
-            dfs(node.right, currentPath);
+        }else{
+            dfs(node.left, curr);
+            dfs(node.right, curr);
         }
-
-        // Backtrack to explore other paths
-        currentPath.deleteCharAt(0);
+        curr.deleteCharAt(0);
     }
 }
