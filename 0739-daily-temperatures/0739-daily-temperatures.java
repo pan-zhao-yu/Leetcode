@@ -4,7 +4,8 @@ class Solution {
         Stack<Integer> stack = new Stack<>();
         for(int i = 0; i < temperatures.length; i++){
             while(!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]){
-                result[stack.peek()] = i - stack.pop();
+                int preDay = stack.pop();
+                result[preDay] = i - preDay;
             }
             stack.push(i);
         }
