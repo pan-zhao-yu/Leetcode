@@ -10,8 +10,9 @@
  */
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        ListNode dummy = new ListNode();
+        
         ListNode result = new ListNode();
+        ListNode dummy = result;
         dummy = result;
         while(list1 != null && list2 != null){
             if(list1.val < list2.val){
