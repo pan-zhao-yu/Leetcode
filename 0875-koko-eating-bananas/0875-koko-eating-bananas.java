@@ -3,23 +3,20 @@ class Solution {
         int left = 1;
         int right = 0;
         for(int pile : piles){
-            right = Math.max(pile, right);
+            right = Math.max(right, pile);
         }
-        
-        while(left <= right){
+        while(left < right){
             int mid = left + (right - left) / 2;
-            int hourNeed = 0;
-            
+            int hourNeeded = 0;
             for(int pile : piles){
-                hourNeed += Math.ceil((double)pile / mid);
+                hourNeeded += Math.ceil((double) pile / mid);
             }
-            
-            if(hourNeed <= h){
-                right = mid - 1;
+            if(hourNeeded <= h){
+                right = mid;
             }else{
                 left = mid + 1;
             }
         }
-        return left;
+        return right;
     }
 }
