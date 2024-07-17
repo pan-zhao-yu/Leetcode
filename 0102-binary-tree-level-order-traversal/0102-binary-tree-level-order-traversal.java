@@ -16,49 +16,20 @@
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
-        Queue<TreeNode> queue = new LinkedList<>();
+        Queue<TreeNode> q = new LinkedList<>();
         if(root == null) return result;
-        queue.offer(root);
-        while(!queue.isEmpty()){
-            int size = queue.size();
+        q.offer(root);
+        while(!q.isEmpty()){
+            int size = q.size();
             List<Integer> currLevel = new ArrayList<>();
             for(int i = 0; i < size; i++){
-                TreeNode temp = queue.poll();
+                TreeNode temp = q.poll();
                 currLevel.add(temp.val);
-                if(temp.left != null) queue.offer(temp.left);
-                if(temp.right != null) queue.offer(temp.right);
+                if(temp.left != null) q.offer(temp.left);
+                if(temp.right != null) q.offer(temp.right);
             }
             result.add(currLevel);
         }
         return result;
     }
 }
-
-// class Solution {
-//     public List<List<Integer>> levelOrder(TreeNode root) {
-//         List<List<Integer>> result = new ArrayList<>();
-//         Queue <TreeNode> queue = new LinkedList<>();
-        
-//         if(root == null){
-//             return result;
-//         }
-        
-//         queue.offer(root);
-//         while(!queue.isEmpty()){
-//             int size = queue.size();
-//             List<Integer> currentLevel = new ArrayList<>();
-//             for(int i = 0; i < size; i++){
-//                 TreeNode temp = queue.poll();
-//                 currentLevel.add(temp.val);
-//                 if(temp.left != null){
-//                     queue.offer(temp.left);
-//                 }
-//                 if(temp.right != null){
-//                     queue.offer(temp.right);
-//                 }
-//             }
-//             result.add(currentLevel);
-//         }
-//         return result;
-//     }
-// }
