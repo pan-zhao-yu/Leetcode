@@ -16,20 +16,17 @@
 class Solution {
     TreeNode prev = null;
     public boolean isValidBST(TreeNode root) {
-        if(root == null){
-            return true;
-        }
-        
+        //inorder traversal for BSF gives a ordered list, just compare if the previous node is always lower than the current node.  
+        if(root == null) return true;
         if(!isValidBST(root.left)){
             return false;
         }
-
-        if(prev != null && root.val <= prev.val){
+        
+        if(prev != null && prev.val >= root.val){
             return false;
         }
         prev = root;
-        
-        return isValidBST(root.right);
 
+        return isValidBST(root.right);
     }
 }
