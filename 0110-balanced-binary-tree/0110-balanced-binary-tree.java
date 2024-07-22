@@ -18,25 +18,10 @@ class Solution {
         return dfs(root) != -1;
     }
     private int dfs(TreeNode node){
-        if(node == null){
-            return 0;
-        }
-        
-        int leftHeight = dfs(node.left);
-        if(leftHeight == -1){
-            return -1;
-        }
-        
-        int rightHeight = dfs(node.right);
-        if(rightHeight == -1){
-            return -1;
-        }
-        
-        if(Math.abs(leftHeight - rightHeight) > 1){
-            return -1;
-        }
-           
-        return 1 + Math.max(leftHeight, rightHeight);
-        
+        if(node == null) return 0;
+        int left = dfs(node.left);
+        int right = dfs(node.right);
+        if(left == -1 || right == -1 || Math.abs(left - right) > 1) return -1;
+        return Math.max(left, right) + 1;
     }
 }
