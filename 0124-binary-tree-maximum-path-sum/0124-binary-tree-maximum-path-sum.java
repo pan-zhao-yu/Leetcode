@@ -23,8 +23,7 @@ class Solution {
         if(node == null) return 0;
         int leftSum = Math.max(0, dfs(node.left));
         int rightSum = Math.max(0, dfs(node.right));
-        int newPath = node.val + leftSum + rightSum;
-        maxSum = Math.max(maxSum, newPath);
+        maxSum = Math.max(maxSum, node.val + leftSum + rightSum);
         return node.val + Math.max(leftSum, rightSum);
     }
 }
