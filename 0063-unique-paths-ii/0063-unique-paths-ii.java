@@ -3,7 +3,10 @@ class Solution {
 
         int row = obstacleGrid.length;
         int col = obstacleGrid[0].length;
-        if(obstacleGrid[row - 1][col - 1] == 1) return 0;
+        // If the start or end is an obstacle, no paths exist
+        if (obstacleGrid[0][0] == 1 || obstacleGrid[row - 1][col - 1] == 1) {
+            return 0;
+        }
         for(int i = 0; i < row; i++){
             for(int j = 0; j < col; j++){
                 if(obstacleGrid[i][j] == 1){
