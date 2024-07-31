@@ -1,7 +1,6 @@
 class Solution {
     public int integerBreak(int n) {
-        if (n == 2) return 1; // Special case
-        if (n == 3) return 2; // Special case
+        if (n == 2) return 1;
         
         int[] dp = new int[n + 1];
         dp[1] = 1; // This value won't be used for n >= 4
