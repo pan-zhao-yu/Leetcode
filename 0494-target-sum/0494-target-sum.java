@@ -29,3 +29,4 @@ class Solution {
         return dp[nums.length][left];
     }
 }
+//dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i]];
