@@ -8,7 +8,7 @@ class Solution {
         for(int i = 0; i <= squares.size(); i++){
             dp[i][0] = 0;
         }
-        for(int j = 0; j <= n; j++){
+        for(int j = 1; j <= n; j++){
             dp[0][j] = Integer.MAX_VALUE - 1;
         }
         for(int i = 1; i <= squares.size(); i++){
