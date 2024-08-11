@@ -1,21 +1,19 @@
 class Solution {
     public int rob(int[] nums) {
-        if(nums.length == 0) return 0;
         if(nums.length == 1) return nums[0];
-        return Math.max(
-            helper(nums, 0, nums.length - 2),
-            helper(nums, 1, nums.length - 1)
-        );
+        if(nums.length == 2) return Math.max(nums[0], nums[1]);
+        int startFromFirst = dp(nums, 0, nums.length - 2);
+        int startFromSec = dp(nums, 1, nums.length - 1);
+        return Math.max(startFromFirst, startFromSec);
     }
-    
-    private int helper(int[] nums, int start, int end){
-        int rob1 = 0;
-        int rob2 = 0;
+    private int dp(int[] nums, int start, int end){
+        int dp1 = 0;
+        int dp2 = 0;
         for(int i = start; i <= end; i++){
-            int temp = Math.max(rob1 + nums[i], rob2);
-            rob1 = rob2;
-            rob2 = temp;
+            int temp = Math.max(dp1 + nums[i], dp2);
+            dp1 = dp2;
+            dp2 = temp;
         }
-        return rob2;
+        return dp2;
     }
 }
