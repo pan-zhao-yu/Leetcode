@@ -13,19 +13,8 @@ class Solution {
                 }
             }
         }
-        printDP(dp);
         return dp[s.length()][t.length()];
     }
-    
-    private void printDP(int[][] dp) {
-        for (int i = 0; i < dp.length; i++) {
-            for (int j = 0; j < dp[i].length; j++) {
-                System.out.print(dp[i][j] + "\t");
-            }
-            System.out.println();
-        }
-    }
-    
 }
 
 //if(s[i] == t[j]) dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
