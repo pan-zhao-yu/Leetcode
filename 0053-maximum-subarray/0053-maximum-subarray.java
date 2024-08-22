@@ -13,4 +13,4 @@ class Solution {
         return result;
     }
 }
-//dp[i] = max(dp[i - 1] + dp[i], dp[i]);
+//dp[i] = max(dp[i - 1] + dp[i], nums[i]);
