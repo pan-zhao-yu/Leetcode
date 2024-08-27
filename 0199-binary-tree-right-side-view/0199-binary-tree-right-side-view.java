@@ -17,49 +17,19 @@ class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         if(root == null) return result;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        while(!q.isEmpty()){
-            int size = q.size();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while(!queue.isEmpty()){
+            int size = queue.size();
             for(int i = 0; i < size; i++){
-                TreeNode curr = q.poll();
-                if(i == size - 1) result.add(curr.val);
-                if(curr.left != null) q.add(curr.left);
-                if(curr.right != null) q.add(curr.right);
+                TreeNode temp = queue.poll();
+                if(i == 0){
+                    result.add(temp.val);
+                }
+                if(temp.right != null) queue.add(temp.right);
+                if(temp.left != null) queue.add(temp.left);
             }
         }
         return result;
     }
 }
-
-
-// class Solution {
-//     public List<Integer> rightSideView(TreeNode root) {
-//         List<Integer> result = new ArrayList<>();
-//         Queue<TreeNode> queue = new LinkedList<>();
-        
-//         if(root == null){
-//             return result;
-//         }
-//         queue.offer(root);
-        
-//         while(!queue.isEmpty()){
-//             int levelSize = queue.size();
-//             for(int i = 0; i < levelSize; i++){
-//                 TreeNode current = queue.poll();
-//                 if(i == levelSize -1){
-//                     result.add(current.val);
-//                 }
-                
-//                 if(current.left != null){
-//                     queue.offer(current.left);
-//                 }
-//                 if(current.right != null){
-//                     queue.offer(current.right);
-//                 }
-//             }
-
-//         }
-//         return result;
-//     }
-// }
