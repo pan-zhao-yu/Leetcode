@@ -17,18 +17,14 @@ class Solution {
     public int sumNumbers(TreeNode root) {
         return dfs(root, 0);
     }
-    
-    private int dfs(TreeNode curr, int sum){
-        if(curr == null){
-            return 0;
-        }
-        int newSum = sum * 10 + curr.val;
-        if(curr.left == null && curr.right == null){
+    private int dfs(TreeNode node, int num){
+        if(node == null) return 0;
+        int newSum = num * 10 + node.val;
+        if(node.left == null && node.right == null){
             return newSum;
         }
-        int leftSum = dfs(curr.left, newSum);
-        int rightSum = dfs(curr.right, newSum);
-        
+        int leftSum = dfs(node.left, newSum);
+        int rightSum = dfs(node.right, newSum);
         return leftSum + rightSum;
     }
 }
