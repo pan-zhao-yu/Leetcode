@@ -4,7 +4,8 @@ class Solution {
         PriorityQueue<Map.Entry<Integer, Integer>> minHeap = new PriorityQueue<>((a, b) -> a.getValue() - b.getValue());
         for(int n : nums){
             map.put(n, map.getOrDefault(n, 0) + 1);
-        }for(Map.Entry<Integer, Integer> entry : map.entrySet()){
+        }
+        for(Map.Entry<Integer, Integer> entry : map.entrySet()){
             minHeap.add(entry);
             if(minHeap.size() > k){
                 minHeap.poll();
