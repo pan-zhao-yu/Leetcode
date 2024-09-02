@@ -14,17 +14,21 @@
  * }
  */
 class Solution {
-    List<Integer> result;
     public List<Integer> inorderTraversal(TreeNode root) {
-        result = new ArrayList<>();
-        dfs(root);
-        return result;
-    }
-    
-    private void dfs(TreeNode node){
-        if(node == null) return;
-        dfs(node.left);
-        result.add(node.val);
-        dfs(node.right);
+        List<Integer> res = new ArrayList<>();
+        if(root == null) return res;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode temp = root;
+        while(!stack.isEmpty() || temp != null){
+            if(temp != null){
+                stack.push(temp);
+                temp = temp.left;
+            }else{
+                temp = stack.pop();
+                res.add(temp.val);
+                temp = temp.right;
+            }
+        }
+        return res;
     }
 }
