@@ -14,15 +14,14 @@
  * }
  */
 class Solution {
-    List<Integer> result;
+    List<Integer> res = new ArrayList<>();
     public List<Integer> preorderTraversal(TreeNode root) {
-        result = new ArrayList<>();
         dfs(root);
-        return result;
+        return res;
     }
     private void dfs(TreeNode node){
         if(node == null) return;
-        result.add(node.val);
+        res.add(node.val);
         dfs(node.left);
         dfs(node.right);
     }
