@@ -14,24 +14,23 @@
  * }
  */
 class Solution {
+    /**
+     * 递归法，相比求MaxDepth要复杂点
+     * 因为最小深度是从根节点到最近**叶子节点**的最短路径上的节点数量
+     */
     public int minDepth(TreeNode root) {
-        if(root == null) return 0;
-        int res = 0;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        int minDepth = 1;
-        while(!q.isEmpty()){
-            int size = q.size();
-            for(int i = 0; i < size; i++){
-                TreeNode temp = q.poll();
-            if(temp.left == null && temp.right == null){
-                return minDepth;
-            }
-                if(temp.left != null) q.offer(temp.left);
-                if(temp.right != null) q.offer(temp.right);
-            }
-            minDepth++;
+        if (root == null) {
+            return 0;
         }
-        return minDepth;
+        int leftDepth = minDepth(root.left);
+        int rightDepth = minDepth(root.right);
+        if (root.left == null) {
+            return rightDepth + 1;
+        }
+        if (root.right == null) {
+            return leftDepth + 1;
+        }
+        // 左右结点都不为null
+        return Math.min(leftDepth, rightDepth) + 1;
     }
 }
