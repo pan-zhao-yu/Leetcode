@@ -28,10 +28,13 @@ class Solution {
         if(lTree == null || rTree == null){
             return false;
         }
+        if(lTree.val != rTree.val){
+            return false;
+        }
+        boolean leftTree = dfs(lTree.left, rTree.right);
+        boolean rightTree = dfs(lTree.right, rTree.left);
         
-        return lTree.val == rTree.val && 
-            dfs(lTree.left, rTree.right) && 
-            dfs(lTree.right, rTree.left);
+        return leftTree && rightTree;
 
     }
 }
