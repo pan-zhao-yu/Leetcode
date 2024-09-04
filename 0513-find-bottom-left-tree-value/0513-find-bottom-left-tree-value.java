@@ -15,44 +15,19 @@
  */
 class Solution {
     public int findBottomLeftValue(TreeNode root) {
-        if(root == null) return 0;
-        int result = 0;
+        int blVal = 0;
+        if(root == null) return blVal;
         Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
+        q.offer(root);
         while(!q.isEmpty()){
             int size = q.size();
             for(int i = 0; i < size; i++){
-                TreeNode curr = q.poll();
-                if(i == 0){
-                    result = curr.val;
-                }
-                if(curr.left != null) q.add(curr.left);
-                if(curr.right != null) q.add(curr.right);
+                TreeNode temp = q.poll();
+                if(temp.right != null) q.offer(temp.right);
+                if(temp.left != null) q.offer(temp.left);
+                blVal = temp.val;
             }
         }
-        return result;
+        return blVal;
     }
 }
-
-
-// class Solution {
-//     public int findBottomLeftValue(TreeNode root) {
-//         if(root == null) return 0;
-//         Queue<TreeNode> q = new LinkedList<>();
-//         q.offer(root);
-//         int ans = root.val;
-        
-//         while(!q.isEmpty()){
-//             TreeNode curr = q.poll();
-//             ans = curr.val;
-            
-//             if(curr.right != null){
-//                 q.offer(curr.right);
-//             }
-//             if(curr.left != null){
-//                 q.offer(curr.left);
-//             }
-//         }
-//         return ans;
-//     }
-// }
