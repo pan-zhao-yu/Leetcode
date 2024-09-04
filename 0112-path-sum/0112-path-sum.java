@@ -14,15 +14,20 @@
  * }
  */
 class Solution {
+    private boolean res = false;
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        return dfs(root, targetSum, 0);
+        backtrack(root, targetSum, 0);
+        return res;
     }
-    private boolean dfs(TreeNode node, int target, int curr){
-        if(node == null) return false;
+    private void backtrack(TreeNode node, int target, int curr){
+        if(node == null) return;
         curr += node.val;
-        if(node.left == null && node.right == null){
-            return curr == target;
+        if(curr == target && node.left == null && node.right == null){
+            res = true;
+            return;
         }
-        return dfs(node.left, target, curr) || dfs(node.right, target, curr);
+        backtrack(node.left, target, curr);
+        backtrack(node.right, target, curr);
+        curr -= node.val;
     }
 }
