@@ -14,19 +14,25 @@
  * }
  */
 class Solution {
-    TreeNode prev = null;
-    public boolean isValidBST(TreeNode root) {
-        //inorder traversal for BSF gives a ordered list, just compare if the previous node is always lower than the current node.  
-        if(root == null) return true;
-        if(!isValidBST(root.left)){
-            return false;
-        }
-        
-        if(prev != null && prev.val >= root.val){
-            return false;
-        }
-        prev = root;
+    private long prevVal = Long.MIN_VALUE; // Use Long.MIN_VALUE to handle all cases
 
-        return isValidBST(root.right);
+    public boolean isValidBST(TreeNode root) {
+        return inOrderTraversal(root);
+    }
+
+    private boolean inOrderTraversal(TreeNode node) {
+        if (node == null) return true;
+
+        // Check left subtree
+        if (!inOrderTraversal(node.left)) return false;
+
+        // Current node's value must be greater than the previous node's value in in-order traversal
+        if (node.val <= prevVal) return false;
+        
+        // Update the previous value to the current node's value
+        prevVal = node.val;
+
+        // Check right subtree
+        return inOrderTraversal(node.right);
     }
 }
