@@ -14,8 +14,9 @@
  * }
  */
 class Solution {
-    int sum;
+    int sum = 0;
     public TreeNode convertBST(TreeNode root) {
+        if(root == null) return null;
         dfs(root);
         return root;
     }
