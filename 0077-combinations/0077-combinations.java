@@ -1,20 +1,19 @@
 class Solution {
     public List<List<Integer>> combine(int n, int k) {
-        List<List<Integer>> res = new ArrayList<>();
-        backtrack(res, new ArrayList<>(), n, k, 1);
-        return res;
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
+        backtrack(result, n, k, 1, temp);
+        return result;
     }
-    
-    private void backtrack(List<List<Integer>> list, List<Integer> temp, int n, int k, int start){
-        if(k == 0){
-            list.add(new ArrayList(temp));
+    private void backtrack(List<List<Integer>> result, int n, int k, int start, List<Integer> temp){
+        if(temp.size() == k){
+            result.add(new ArrayList(temp));
             return;
         }
-        
         for(int i = start; i <= n; i++){
             temp.add(i);
-            backtrack(list, temp, n, k -1, i +1);
-            temp.remove(temp.size() -1);
+            backtrack(result, n, k, i + 1, temp);
+            temp.remove(temp.size() - 1);
         }
     }
 }
