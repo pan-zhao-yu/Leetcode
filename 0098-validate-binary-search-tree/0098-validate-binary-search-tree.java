@@ -25,7 +25,7 @@ class Solution {
         if (node == null) return true;
 
         // Traverse the left subtree
-        if (!inOrderT(node.left)) return false;
+        boolean left = inOrderT(node.left);
 
         // Check the current node value
         if (preVal != null && node.val <= preVal) return false;
@@ -34,6 +34,6 @@ class Solution {
         preVal = (long) node.val;
 
         // Traverse the right subtree
-        return inOrderT(node.right);
+        return inOrderT(node.right) && left;
     }
 }
