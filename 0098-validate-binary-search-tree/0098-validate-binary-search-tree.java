@@ -14,25 +14,26 @@
  * }
  */
 class Solution {
-    private long prevVal = Long.MIN_VALUE; // Use Long.MIN_VALUE to handle all cases
+    Long preVal;
 
     public boolean isValidBST(TreeNode root) {
-        return inOrderTraversal(root);
+        preVal = null; // Initialize preVal to null before starting traversal
+        return inOrderT(root);
     }
 
-    private boolean inOrderTraversal(TreeNode node) {
+    public boolean inOrderT(TreeNode node) {
         if (node == null) return true;
 
-        // Check left subtree
-        if (!inOrderTraversal(node.left)) return false;
+        // Traverse the left subtree
+        if (!inOrderT(node.left)) return false;
 
-        // Current node's value must be greater than the previous node's value in in-order traversal
-        if (node.val <= prevVal) return false;
-        
-        // Update the previous value to the current node's value
-        prevVal = node.val;
+        // Check the current node value
+        if (preVal != null && node.val <= preVal) return false;
 
-        // Check right subtree
-        return inOrderTraversal(node.right);
+        // Update preVal to current node's value
+        preVal = (long) node.val;
+
+        // Traverse the right subtree
+        return inOrderT(node.right);
     }
 }
