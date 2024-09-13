@@ -7,8 +7,8 @@ class Solution {
     }
     
     private void backtrack(List<String> result, List<String> temp, String s, int start){
-        if(temp.size() == 4){
-            if(start == s.length()) result.add(String.join(".", temp));
+        if(temp.size() == 4 && start == s.length()){
+            result.add(String.join(".", temp));
             return;
         }
         for(int i = 1; i <= 3; i++){
