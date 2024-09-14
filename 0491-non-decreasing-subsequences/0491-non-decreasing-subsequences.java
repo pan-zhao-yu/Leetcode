@@ -11,7 +11,7 @@ class Solution {
     }
     
     private void backtrack(List<List<Integer>> res, List<Integer> temp, int[] nums, int start) {
-        if (temp.size() > 1) {
+        if (temp.size() >= 2) {
             res.add(new ArrayList<>(temp));
         }
         
