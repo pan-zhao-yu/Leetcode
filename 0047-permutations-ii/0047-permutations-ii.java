@@ -11,7 +11,7 @@ class Solution {
             result.add(new ArrayList<>(temp));
         }else{
             for(int i = 0; i < nums.length; i++){
-                if(used[i] || i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) continue;
+                if(used[i] || i > 0 && nums[i] == nums[i - 1] && used[i - 1] == false) continue;
                 used[i] = true;
                 temp.add(nums[i]);
                 backtrack(result, temp, nums, used);
