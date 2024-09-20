@@ -5,7 +5,7 @@ class Solution {
         return res;
     }
     private void backtrack(List<List<Integer>> res, List<Integer> temp, int k, int n, int start){
-        // if(n < 0 || temp.size() > k) return;
+        if(n < 0 || temp.size() > k) return;
         if(temp.size() == k && n == 0){
             res.add(new ArrayList(temp));
             return;
