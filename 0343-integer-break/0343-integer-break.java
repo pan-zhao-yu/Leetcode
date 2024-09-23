@@ -4,7 +4,7 @@ class Solution {
         int[] dp = new int[n+1];
         dp[2] = 1;
         for(int i = 3; i <= n; i++) {
-            for(int j = 1; j <= i-j; j++) {
+            for(int j = 0; j <i; j++) {
                 // 这里的 j 其实最大值为 i-j,再大只不过是重复而已，
                 //并且，在本题中，我们分析 dp[0], dp[1]都是无意义的，
                 //j 最大到 i-j,就不会用到 dp[0]与dp[1]
