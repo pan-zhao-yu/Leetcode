@@ -10,39 +10,21 @@
  */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
-        int size = lists.length;
-        int interval = 1;
-
-        while (interval < size) {
-            for (int i = 0; i < size - interval; i += 2 * interval) {
-                lists[i] = merge(lists[i], lists[i + interval]);
+        PriorityQueue<ListNode> pq = new PriorityQueue<>((a, b) -> a.val - b.val);
+        for(ListNode temp : lists){
+            if(temp != null){
+                pq.offer(temp);
             }
-
-            interval *= 2;
         }
-        return size > 0 ? lists[0] : null;
-    }
-    
-    private ListNode merge(ListNode l1, ListNode l2){
         ListNode dummy = new ListNode();
         ListNode curr = dummy;
-        while(l1 != null && l2 != null){
-            if(l1.val > l2.val){
-                curr.next = l2;
-                l2 = l2.next;
-            }else{
-                curr.next = l1;
-                l1 = l1.next;
-            }
+        while(!pq.isEmpty()){
+            curr.next = pq.poll();
             curr = curr.next;
-        }
-        
-        if(l1 != null){
-            curr.next = l1;
-        }else if(l2 != null){
-            curr.next = l2;
+            if(curr.next != null){
+                pq.offer(curr.next);
+            }
         }
         return dummy.next;
     }
 }
-
