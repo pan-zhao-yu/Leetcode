@@ -1,16 +1,15 @@
 class Solution {
     public int maxProfit(int[] prices) {
-        int[][] dp = new int[prices.length][2];
-        dp[0][0] = 0;
-        dp[0][1] = -prices[0];
-        for(int i = 1; i < prices.length; i++){
-            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
-            dp[i][1] = Math.max(dp[i - 1][1], dp[i - 1][0] - prices[i]);
+        int left = 0;
+        int right = 1;
+        int sum = 0;
+        while(right < prices.length){
+            if(prices[left] < prices[right]){
+                sum += prices[right] - prices[left];
+            }
+            left++;
+            right++;
         }
-        return dp[prices.length - 1][0];
+        return sum;
     }
 }
-//dp[i][0] means the max money possible on hand without holding stock on i th day
-//dp[i][1] max on hand with holding stock, i th day
-//dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i]);
-//dp[i][1] = max(dp[i - 1][1], -prices[i]);
