@@ -1,31 +1,45 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
-        ListNode curr = head;
-        int count = 0;
-        while(curr != null && count != k){
-            curr = curr.next;
-            count++;
+        // Create a dummy node to handle the head manipulation easily
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode temp = head;
+        int len = 0;
+        
+        // Calculate the length of the list
+        while (temp != null) {
+            temp = temp.next;
+            len++;
         }
-        if(count == k){
-            curr = reverseKGroup(curr, k);
-            while(count-- > 0){
-                ListNode temp = head.next;
-                head.next = curr;
-                curr = head;
-                head = temp;
+        
+        // prevTail points to the last node of the previously reversed part
+        ListNode prevTail = dummy;
+        
+        // Reverse in groups of k
+        while (len >= k) {
+            ListNode start = prevTail.next;  // The first node of the current k-group
+            ListNode nextFirst = start;      // This will move to k nodes ahead
+            for (int i = 0; i < k; i++) {
+                nextFirst = nextFirst.next;
             }
-            head = curr;
+            
+            // Reverse the k-group
+            ListNode prev = nextFirst;       // Initially, the nextFirst is where the reversed group should point to
+            ListNode curr = start;           // Start reversing from the current start node
+            for (int i = 0; i < k; i++) {
+                ListNode next = curr.next;   // Save next node
+                curr.next = prev;            // Reverse current node's pointer
+                prev = curr;                 // Move prev to current
+                curr = next;                 // Move to next node
+            }
+            
+            // Connect the previous part to the reversed group
+            prevTail.next = prev;
+            prevTail = start;   // After reversing, start is now the tail of the reversed group
+            
+            len -= k;  // Reduce the length by k since we've reversed a group
         }
-        return head;
+        
+        return dummy.next;
     }
 }
