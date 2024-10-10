@@ -1,27 +1,34 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
-    boolean fund = false;
-    
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        // Reset fund to false in case this is a re-used Solution instance
-        fund = false;
-        backtrack(root, targetSum, 0);
-        return fund;
+        if(root == null) return false;
+        return pathSum(root, targetSum);
     }
-    
-    private void backtrack(TreeNode node, int target, int sum) {
-        if (node == null) return;
-        
-        // Update the current sum
-        sum += node.val;
-        
-        // Check if we've reached a leaf node and the sum matches the target
-        if (node.left == null && node.right == null && sum == target) {
-            fund = true;
-            return;
+    private boolean pathSum(TreeNode node, int target){
+        if(target == node.val && node.left == null && node.right == null){
+            return true;
         }
-        
-        // Recursively search in the left and right subtree
-        backtrack(node.left, target, sum);
-        backtrack(node.right, target, sum);
+        if(node.left == null && node.right == null) return false;
+        if(node.left != null){
+            if(pathSum(node.left, target - node.val)) return true;
+        }
+        if(node.right != null){
+            if(pathSum(node.right, target - node.val)) return true;
+        }
+        return false;
     }
 }
