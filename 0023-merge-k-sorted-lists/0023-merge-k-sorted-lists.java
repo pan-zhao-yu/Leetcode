@@ -10,7 +10,7 @@
  */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
-        if(lists == null || lists.length == 0) return null;
+        if(lists.length == 0) return null;
         return merge(lists, 0, lists.length - 1);
     }
     private ListNode merge(ListNode[] lists, int left, int right){
@@ -18,9 +18,9 @@ class Solution {
         int mid = left + (right - left) / 2;
         ListNode l1 = merge(lists, left, mid);
         ListNode l2 = merge(lists, mid + 1, right);
-        return mergeList(l1, l2);
+        return mergeSort(l1, l2);
     }
-    private ListNode mergeList(ListNode l1, ListNode l2){
+    private ListNode mergeSort(ListNode l1, ListNode l2){
         ListNode dummy = new ListNode();
         ListNode curr = dummy;
         while(l1 != null && l2 != null){
@@ -39,27 +39,7 @@ class Solution {
         }else if(l2 != null){
             curr.next = l2;
         }
+        
         return dummy.next;
     }
 }
-
-// class Solution {
-//     public ListNode mergeKLists(ListNode[] lists) {
-//         PriorityQueue<ListNode> pq = new PriorityQueue<>((a, b) -> a.val - b.val);
-//         for(ListNode temp : lists){
-//             if(temp != null){
-//                 pq.offer(temp);
-//             }
-//         }
-//         ListNode dummy = new ListNode();
-//         ListNode curr = dummy;
-//         while(!pq.isEmpty()){
-//             curr.next = pq.poll();
-//             curr = curr.next;
-//             if(curr.next != null){
-//                 pq.offer(curr.next);
-//             }
-//         }
-//         return dummy.next;
-//     }
-// }
