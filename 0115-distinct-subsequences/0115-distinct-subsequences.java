@@ -16,6 +16,3 @@ class Solution {
         return dp[s.length()][t.length()];
     }
 }
-
-//if(s[i] == t[j]) dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
-//else dp[i][j] = dp[i - 1][j - 1];
