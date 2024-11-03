@@ -10,6 +10,7 @@ class LRUCache {
     tail.prev = head;
   }
 
+    //get method to get the value, then move the node to list front
   public int get(int key) {
     if(map.containsKey(key)) {
       Node node = map.get(key);
