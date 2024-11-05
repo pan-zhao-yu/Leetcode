@@ -16,15 +16,16 @@
 class Solution {
     public void flatten(TreeNode root) {
         if(root == null) return;
+        //post-order traversal to flatten the left and right subtree then connect
         flatten(root.left);
         flatten(root.right);
-        TreeNode leftTree = root.left;
-        TreeNode rightTree = root.right;
-        root.right = leftTree;
+        TreeNode leftSub = root.left;
+        TreeNode rightSub = root.right;
+        root.right = leftSub;
         root.left = null;
         while(root.right != null){
             root = root.right;
         }
-        root.right = rightTree;
+        root.right = rightSub;
     }
 }
