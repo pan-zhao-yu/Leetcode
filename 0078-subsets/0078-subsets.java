@@ -2,7 +2,6 @@ class Solution {
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         List<Integer> temp = new ArrayList<>();
-        if(nums == null) return res;
         backtrack(res, temp, nums, 0);
         return res;
     }
