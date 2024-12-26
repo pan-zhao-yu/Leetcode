@@ -10,14 +10,13 @@ class Solution {
         if(idx == s.length()){
             res.add(new ArrayList<>(temp));
             return;
-        }else{
+        }
             for(int i = idx; i < s.length(); i++){
             if(isPalindrome(s, idx, i)){
                 temp.add(s.substring(idx, i + 1));
                 backtrack(res, temp, s, i + 1);
                 temp.remove(temp.size() - 1);
             }
-        }
         }
         
     }
