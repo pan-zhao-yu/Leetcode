@@ -14,18 +14,13 @@
  * }
  */
 class Solution {
+    TreeNode prev = null;
     public void flatten(TreeNode root) {
         if(root == null) return;
-        //post-order traversal to flatten the left and right subtree then connect
-        flatten(root.left);
         flatten(root.right);
-        TreeNode leftSub = root.left;
-        TreeNode rightSub = root.right;
-        root.right = leftSub;
+        flatten(root.left);
+        root.right = prev;
         root.left = null;
-        while(root.right != null){
-            root = root.right;
-        }
-        root.right = rightSub;
+        prev = root;
     }
 }
