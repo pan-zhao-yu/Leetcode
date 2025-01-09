@@ -14,21 +14,17 @@
  * }
  */
 class Solution {
-    Long prev;
-
+    Integer prev = null;
     public boolean isValidBST(TreeNode root) {
-        prev = null; // Initialize preVal to null before starting traversal
         return inOrder(root);
     }
 
-    public boolean inOrder(TreeNode node) {
+    private boolean inOrder(TreeNode node){
         boolean left = true, right = true;
         if(node.left != null) left = inOrder(node.left);
-        if(prev != null && prev >= (long)node.val) return false;
-        prev = (long)node.val;
+        if( prev != null && node.val <= prev) return false;
+        prev = node.val;
         if(node.right != null) right = inOrder(node.right);
-
-        
-        return right && left;
+        return left && right;
     }
 }
