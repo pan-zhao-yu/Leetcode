@@ -15,26 +15,13 @@
  */
 class Solution {
     public boolean isSymmetric(TreeNode root) {
-        if(root == null){
-            return true;
-        }
-        return dfs(root.left, root.right);
+        if(root == null) return true;
+        return isSymmetric(root.left , root.right);
     }
-    
-    private boolean dfs(TreeNode lTree, TreeNode rTree){
-        if(lTree == null && rTree == null){
-            return true;
-        }
-        if(lTree == null || rTree == null){
-            return false;
-        }
-        if(lTree.val != rTree.val){
-            return false;
-        }
-        boolean leftTree = dfs(lTree.left, rTree.right);
-        boolean rightTree = dfs(lTree.right, rTree.left);
-        
-        return leftTree && rightTree;
 
+    private boolean isSymmetric(TreeNode left, TreeNode right) {
+        if(left == null && right == null) return true;
+        if(left == null || right == null) return false;
+        return left.val == right.val && isSymmetric(left.left, right.right) && isSymmetric(left.right, right.left);
     }
 }
