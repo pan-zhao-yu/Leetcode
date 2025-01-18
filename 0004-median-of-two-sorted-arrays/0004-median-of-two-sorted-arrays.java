@@ -1,49 +1,35 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        
-        if(nums1.length > nums2.length){
-            return findMedianSortedArrays(nums2, nums1);
-        }
-        
-        int m = nums1.length;
-        int n = nums2.length;
-        int total = m + n;
+        if(nums1.length > nums2.length) return findMedianSortedArrays(nums2, nums1);
+        int total = nums1.length + nums2.length;
         int half = (total + 1) / 2;
         int left = 0;
-        int right = m;
-        
-        double result = 0.0;
-        
+        int right = nums1.length;
+        double res = 0.0;
         while(left <= right){
-            int i = left + (right - left) / 2;
-            int j = half - i;
-            
-            int left1 = (i > 0) ? nums1[i - 1] : Integer.MIN_VALUE;
-            int right1 = (i < m) ? nums1[i] : Integer.MAX_VALUE;
-            int left2 = (j > 0) ? nums2[j - 1] : Integer.MIN_VALUE;
-            int right2 = (j < n) ? nums2[j] : Integer.MAX_VALUE;
-
-            // partition is correct
-            if (left1 <= right2 && left2 <= right1) {
-                // even
-                if (total % 2 == 0) {
-                    result =
-                        (Math.max(left1, left2) + Math.min(right1, right2)) /
-                        2.0;
-                    // odd
-                } else {
-                    result = Math.max(left1, left2);
+            int i = left + (right - left) / 2; //partition index for nums1
+            int j =  half - i; //index for nums2
+            int left1 = i > 0 ? nums1[i - 1] : Integer.MIN_VALUE;
+            int right1 = i < nums1.length ? nums1[i] : Integer.MAX_VALUE;
+            int left2 = j > 0 ? nums2[j - 1] : Integer.MIN_VALUE;
+            int right2 = j < nums2.length ? nums2[j] : Integer.MAX_VALUE;
+            if(left1 <= right2 && left2 <= right1){// partition is correct
+                if(total % 2 == 0){
+                    int n1 = Math.max(left1, left2);
+                    int n2 = Math.min(right1, right2);
+                    res = (n1 + n2) / 2.0;
+                }else{
+                    res = Math.max(left1, left2);
                 }
-                break;
-            }
-            // partition is wrong (update left/right pointers)
-            else if (left1 > right2) {
-                right = i - 1;
-            } else {
-                left = i + 1;
+                return res;
+            }else{
+                if(left1 > right2){
+                    right = i - 1;
+                }else{
+                    left = i + 1;
+                }
             }
         }
-
-        return result;
+        return res;
     }
 }
