@@ -15,29 +15,19 @@
  */
 class Solution {
     public int pathSum(TreeNode root, long targetSum) {
-        if (root == null) {
-            return 0;
-        }
-
-        int ret = rootSum(root, targetSum);
-        ret += pathSum(root.left, targetSum);
-        ret += pathSum(root.right, targetSum);
-        return ret;
+        if(root == null) return 0;
+        int res = dfs(root, targetSum);
+        int left = pathSum(root.left, targetSum);
+        int right = pathSum(root.right, targetSum);
+        return res + left + right;
     }
 
-    public int rootSum(TreeNode root, long targetSum) {
-        int ret = 0;
-
-        if (root == null) {
-            return 0;
-        }
-        int val = root.val;
-        if (val == targetSum) {
-            ret++;
-        } 
-
-        ret += rootSum(root.left, targetSum - val);
-        ret += rootSum(root.right, targetSum - val);
-        return ret;
+    private int dfs(TreeNode node, long target){
+        if(node == null) return 0;
+        int count = 0;
+        if(node.val == target) count++;
+        int left = dfs(node.left, target - node.val);
+        int right = dfs(node.right, target - node.val);
+        return count + left + right;
     }
 }
