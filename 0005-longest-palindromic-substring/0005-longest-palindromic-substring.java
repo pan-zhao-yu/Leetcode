@@ -6,12 +6,12 @@ class Solution {
         for(int i = s.length() - 1; i >= 0; i--){
             for(int j = i; j < s.length(); j++){
                 if(s.charAt(i) == s.charAt(j)){
-                    if(j - i <= 1 || dp[i + 1][j - 1]){
+                    if(j - i < 2 || dp[i + 1][j - 1]){
                         dp[i][j] = true;
-                        if(j - i + 1 > longest){
-                            longest = j - i + 1;
+                        if(longest < j - i + 1){
                             left = i;
                             right = j;
+                            longest = j - i + 1;
                         }
                     }
                 }
