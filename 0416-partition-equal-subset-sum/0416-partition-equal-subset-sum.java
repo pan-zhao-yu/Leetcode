@@ -7,9 +7,6 @@ class Solution {
         if(sum % 2 != 0) return false;
         int target = sum / 2;
         int[][] dp = new int[nums.length + 1][target + 1];
-        for(int i = 0; i < nums.length; i++){
-            dp[i][0] = 0;
-        }
         for(int i = 1; i <= nums.length; i++){
             for(int j = 1; j <= target; j++){
                 if(j >= nums[i - 1]){
@@ -22,6 +19,3 @@ class Solution {
         return dp[nums.length][target] == target;
     }
 }
-
-//dp[i][j] = the max sum we can adds up by using the first i th item, in target j
-//dp[i][j] = max(dp[i -1][j], dp[i - 1][j - nums[i - 1]] + nums[i - 1]);
