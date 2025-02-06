@@ -7,10 +7,12 @@ class Solution {
             for(int j = 0; j < i; j++){
                 if(nums[i] > nums[j]){
                     dp[i] = Math.max(dp[j] + 1, dp[i]);
+                    result = Math.max(result, dp[i]);
                 }
             }
-            result = Math.max(result, dp[i]);
         }
         return result;
     }
 }
+//dp[i] = Math.max(dp[j] + 1, dp[i]);
+//dp[i] means the LIS starting from j ending at i
