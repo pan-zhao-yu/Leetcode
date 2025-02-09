@@ -19,6 +19,7 @@ class Solution {
             {0, -1}
         };
         while(!q.isEmpty() && fresh != 0){
+            time++;
             int size = q.size();
             for(int i = 0; i < size; i++){
                 int[] curr = q.poll();
@@ -34,9 +35,7 @@ class Solution {
                     }
                 }
             }
-            if(fresh >= 0){
-                time++;
-            }else if(fresh == 0) return time;
+            if(fresh == 0) return time;
         }
         return fresh == 0 ? time : -1;
     }
