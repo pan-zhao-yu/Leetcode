@@ -1,12 +1,12 @@
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
-        Stack<Integer> mono = new Stack<>();
+        Deque<Integer> stack = new LinkedList<>();
         int[] res = new int[temperatures.length];
         for(int i = 0; i < temperatures.length; i++){
-            while(!mono.isEmpty() && temperatures[mono.peek()] < temperatures[i]){
-                res[mono.peek()] = i - mono.pop();
+            while(!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]){
+                res[stack.peek()] = i - stack.pop();
             }
-            mono.push(i);
+            stack.push(i);
         }
         return res;
     }
