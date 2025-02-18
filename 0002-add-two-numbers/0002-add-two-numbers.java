@@ -10,21 +10,20 @@
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode dummyHead = new ListNode(0);
-        ListNode tail = dummyHead;
         int carry = 0;
+        ListNode res = new ListNode(0);
+        ListNode tail = res;
         while(l1 != null || l2 != null || carry != 0){
-            int digit1 = (l1 != null) ? l1.val : 0;
-            int digit2 = (l2 != null) ? l2.val : 0;
-            int sum = digit1 + digit2 + carry;
-            int digit = sum % 10;
-            carry = sum / 10;
-            ListNode temp = new ListNode(digit);
-            tail.next = temp;
+            int digit1 = l1 == null ? 0 : l1.val;
+            int digit2 = l2 == null ? 0 : l2.val;
+            int curr = digit1 + digit2 + carry;
+            carry = curr / 10;
+            int n = curr % 10;
+            tail.next = new ListNode(n);
+            if(l1 != null) l1 = l1.next;
+            if(l2 != null) l2 = l2.next;
             tail = tail.next;
-            l1 = (l1 != null) ? l1.next : null;
-            l2 = (l2 != null) ? l2.next : null;
         }
-        return dummyHead.next;
+        return res.next;
     }
 }
