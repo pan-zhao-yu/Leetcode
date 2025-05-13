@@ -13,49 +13,44 @@ class Solution {
         if(head == null || head.next == null) return head;
         ListNode left = head;
         ListNode right = getMid(head);
-        ListNode temp = right.next;
-        right.next = null;
-        right = temp;
-        
+        ListNode temp = right;
+        right = right.next;
+        temp.next = null;
         left = sortList(left);
         right = sortList(right);
-        return merge(left, right);
+        return sort(left, right);
     }
-    
+
     private ListNode getMid(ListNode node){
-        if(node == null || node.next == null){
-            return node;
-        }
-        
-        ListNode fast = node.next, slow = node;
+        ListNode slow = node;
+        ListNode fast = node.next;
         while(fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
         }
         return slow;
     }
-    
-    private ListNode merge(ListNode left, ListNode right){
-        
+
+    private ListNode sort(ListNode left, ListNode right){
         ListNode dummy = new ListNode();
-        ListNode tail = dummy;
+        ListNode head = dummy;
         while(left != null && right != null){
             if(left.val < right.val){
-                tail.next = left;
+                head.next = left;
                 left = left.next;
             }else{
-                tail.next = right;
+                head.next = right;
                 right = right.next;
             }
-            tail = tail.next;
+            head = head.next;
         }
         if(left != null){
-            tail.next = left;
+            head.next = left;
         }
         if(right != null){
-            tail.next = right;
+            head.next = right;
         }
-        
         return dummy.next;
     }
+    
 }
