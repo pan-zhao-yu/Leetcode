@@ -1,21 +1,15 @@
 class Solution {
     public boolean isValid(String s) {
-        Deque<Character> deque = new LinkedList<>();
-        char ch;
-        for (int i = 0; i < s.length(); i++) {
-            ch = s.charAt(i);
-            //碰到左括号，就把相应的右括号入栈
-            if (ch == '(') {
-                deque.push(')');
-            }else if (ch == '{') {
-                deque.push('}');
-            }else if (ch == '[') {
-                deque.push(']');
-            } else if (deque.isEmpty() || deque.pop() != ch) {
-                return false;
-            }
+        Stack<Character> stack = new Stack<>();
+        for(char c : s.toCharArray()){
+            if(c == '('){
+                stack.push(')');
+            }else if(c == '{'){
+                stack.push('}');
+            }else if(c == '['){
+                stack.push(']');
+            }else if(stack.isEmpty() || c != stack.pop()) return false;
         }
-        //最后判断栈中元素是否匹配
-        return deque.isEmpty();
+        return stack.isEmpty();
     }
 }
