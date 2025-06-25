@@ -1,24 +1,22 @@
 class Trie {
     class TrieNode{
-        char c;
         TrieNode[] child;
         Boolean isEnd;
-        public TrieNode(char c, TrieNode[] child, Boolean isEnd){
-            this.c = c;
+        public TrieNode(TrieNode[] child, Boolean isEnd){
             this.child = child;
             this.isEnd = isEnd;
         }
     }
     TrieNode root;
     public Trie() {
-        root = new TrieNode(' ', new TrieNode[26], false);
+        root = new TrieNode(new TrieNode[26], false);
     }
     
     public void insert(String word) {
         TrieNode curr = root;
         for(char c : word.toCharArray()){
             if(curr.child[c - 'a'] == null){
-                curr.child[c - 'a'] = new TrieNode(c, new TrieNode[26], false);
+                curr.child[c - 'a'] = new TrieNode(new TrieNode[26], false);
             }
             curr = curr.child[c - 'a'];
         }
