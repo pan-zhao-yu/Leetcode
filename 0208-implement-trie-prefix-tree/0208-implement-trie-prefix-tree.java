@@ -1,50 +1,45 @@
 class Trie {
     class TrieNode{
-        TrieNode[] children;
-        boolean end;
-        private TrieNode(){
-            children = new TrieNode[26];
-            end = false;
+        char c;
+        TrieNode[] child;
+        Boolean isEnd;
+        public TrieNode(char c, TrieNode[] child, Boolean isEnd){
+            this.c = c;
+            this.child = child;
+            this.isEnd = isEnd;
         }
     }
-    
-    private TrieNode root;
+    TrieNode root;
     public Trie() {
-        root = new TrieNode();
+        root = new TrieNode(' ', new TrieNode[26], false);
     }
     
     public void insert(String word) {
         TrieNode curr = root;
         for(char c : word.toCharArray()){
-            int index = c - 'a';
-            if(curr.children[index] == null){
-                curr.children[index] = new TrieNode();
+            if(curr.child[c - 'a'] == null){
+                curr.child[c - 'a'] = new TrieNode(c, new TrieNode[26], false);
             }
-            curr = curr.children[index];
+            curr = curr.child[c - 'a'];
         }
-        curr.end = true;
+        curr.isEnd = true;
     }
     
     public boolean search(String word) {
         TrieNode curr = root;
         for(char c : word.toCharArray()){
-            int index = c - 'a';
-            if(curr.children[index] == null){
-                return false;
-            }
-            curr = curr.children[index];
+            if(curr.child[c - 'a'] == null) return false;
+            else curr = curr.child[c - 'a'];
         }
-        return curr.end;
+        if(curr.isEnd == false) return false;
+        else return true;
     }
     
     public boolean startsWith(String prefix) {
         TrieNode curr = root;
         for(char c : prefix.toCharArray()){
-            int index = c - 'a';
-            if(curr.children[index] == null){
-                return false;
-            }
-            curr = curr.children[index];
+            if(curr.child[c - 'a'] == null) return false;
+            else curr = curr.child[c - 'a'];
         }
         return true;
     }
