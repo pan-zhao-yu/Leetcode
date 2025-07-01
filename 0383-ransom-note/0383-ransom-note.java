@@ -1,12 +1,14 @@
 class Solution {
     public boolean canConstruct(String ransomNote, String magazine) {
-        Map<Character, Integer> magaMap = new HashMap<>();
+        int[] map = new int[26];
         for(char c : magazine.toCharArray()){
-            magaMap.put(c, magaMap.getOrDefault(c, 0) + 1);
+            map[c - 'a'] += 1;
         }
         for(char c : ransomNote.toCharArray()){
-            if(!magaMap.containsKey(c) || magaMap.get(c) <= 0) return false;
-            magaMap.put(c, magaMap.get(c) - 1);
+            if(map[c - 'a'] == 0) return false;
+            else{
+                map[c - 'a'] -= 1;
+            }
         }
         return true;
     }
