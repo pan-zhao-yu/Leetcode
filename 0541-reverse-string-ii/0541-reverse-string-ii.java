@@ -1,20 +1,19 @@
 class Solution {
     public String reverseStr(String s, int k) {
-        char[] ch = s.toCharArray();
-        for(int i = 0;i < ch.length;i += 2 * k){
-            int start = i;
-            // 判断尾数够不够k个来取决end指针的位置
-            int end = Math.min(ch.length - 1,start + k - 1);
-            while(start < end){
-                
-                char temp = ch[start];
-                ch[start] = ch[end];
-                ch[end] = temp;
-
-                start++;
-                end--;
-            }
+        char[] c = s.toCharArray();
+        for(int i = 0; i < c.length; i += k * 2){
+            int l = i, r = Math.min(c.length - 1, i + k - 1);
+            reverse(c, l, r);
         }
-        return new String(ch);
+        return new String(c);
+    }
+    private void reverse(char[] c, int l, int r){
+        while(l < r){
+            char temp = c[l];
+            c[l] = c[r];
+            c[r] = temp;
+            l++;
+            r--;
+        }
     }
 }
