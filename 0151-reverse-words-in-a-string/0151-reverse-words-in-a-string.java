@@ -1,15 +1,15 @@
-public class Solution {
+class Solution {
     public String reverseWords(String s) {
-        // Trim and split the string by one or more spaces
-        String[] words = s.trim().split("\\s+");
+        String[] words = s.split("\\s+");
+        StringBuilder res = new StringBuilder();
 
-        // Reverse the order of words
-        StringBuilder reversed = new StringBuilder();
         for (int i = words.length - 1; i >= 0; i--) {
-            reversed.append(words[i]).append(" ");
+            res.append(words[i]);
+            if (i != 0) {
+                res.append(" ");
+            }
         }
 
-        // Remove the last extra space and return the result
-        return reversed.toString().trim();
+        return res.toString().trim();
     }
 }
