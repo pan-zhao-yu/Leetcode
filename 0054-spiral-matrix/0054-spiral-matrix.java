@@ -1,17 +1,33 @@
 class Solution {
     public List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> res = new ArrayList<>();
-        int x = 0, y = 0, dx = 1, dy = 0;
-        for(int i = 0; i < matrix.length * matrix[0].length; i++){
-            res.add(matrix[y][x]);
-            matrix[y][x] = -101;
-            if(!(x + dx >= 0 && x + dx < matrix[0].length && y + dy >= 0 && y + dy < matrix.length) || matrix[y+dy][x+dx] == -101){
-                int temp = dx;
-                dx = -dy;
-                dy = temp;
+        int top = 0, bottom = matrix.length - 1, left = 0, right = matrix[0].length - 1;
+        while(left <= right && top <= bottom){
+            //left -> right
+            for(int i = left; i <= right; i++){
+                res.add(matrix[top][i]);
             }
-            x += dx;
-            y += dy;
+            top++;
+            //top -> down
+            for(int i = top; i <= bottom; i++){
+                res.add(matrix[i][right]);
+            }
+            right--;
+            // right -> left (check if still within bounds)
+            if (top <= bottom) {
+                for (int i = right; i >= left; i--) {
+                    res.add(matrix[bottom][i]);
+                }
+                bottom--;
+            }
+
+            // bottom -> top (check if still within bounds)
+            if (left <= right) {
+                for (int i = bottom; i >= top; i--) {
+                    res.add(matrix[i][left]);
+                }
+                left++;
+            }
         }
         return res;
     }
