@@ -10,20 +10,39 @@
  */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        int carry = 0;
-        ListNode res = new ListNode(0);
-        ListNode tail = res;
-        while(l1 != null || l2 != null || carry != 0){
-            int digit1 = l1 == null ? 0 : l1.val;
-            int digit2 = l2 == null ? 0 : l2.val;
-            int curr = digit1 + digit2 + carry;
-            carry = curr / 10;
-            int n = curr % 10;
-            tail.next = new ListNode(n);
-            if(l1 != null) l1 = l1.next;
-            if(l2 != null) l2 = l2.next;
-            tail = tail.next;
+        ListNode dummy = new ListNode();
+        ListNode curr = dummy;
+        int increment = 0;
+        while(l1 != null && l2 != null){
+            int sum = l1.val + l2.val + increment;
+            increment = sum / 10;
+            ListNode temp = new ListNode(sum % 10);
+            curr.next = temp;
+            l1 = l1.next;
+            l2 = l2.next;
+            curr = curr.next;
         }
-        return res.next;
+        while(l1 != null){
+            int sum = l1.val + increment;
+            increment = sum / 10;
+            ListNode temp = new ListNode(sum % 10);
+            curr.next = temp;
+            curr = curr.next;
+            l1 = l1.next;
+        }
+        while(l2 != null){
+            int sum = l2.val + increment;
+            increment = sum / 10;
+            ListNode temp = new ListNode(sum % 10);
+            curr.next = temp;
+            curr = curr.next;
+            l2 = l2.next;
+        }
+        if(increment != 0){
+            ListNode temp = new ListNode(increment);
+            curr.next = temp;
+            curr = curr.next;
+        }
+        return dummy.next;
     }
 }
