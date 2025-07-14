@@ -20,37 +20,31 @@ class Solution {
         right = sortList(right);
         return sort(left, right);
     }
-
     private ListNode getMid(ListNode node){
         ListNode slow = node;
         ListNode fast = node.next;
         while(fast != null && fast.next != null){
-            slow = slow.next;
             fast = fast.next.next;
+            slow = slow.next;
         }
         return slow;
     }
 
-    private ListNode sort(ListNode left, ListNode right){
+    private ListNode sort(ListNode n1, ListNode n2){
         ListNode dummy = new ListNode();
-        ListNode head = dummy;
-        while(left != null && right != null){
-            if(left.val < right.val){
-                head.next = left;
-                left = left.next;
+        ListNode res = dummy;
+        while(n1 != null && n2 != null){
+            if(n1.val < n2.val){
+                res.next = n1;
+                n1 = n1.next;
             }else{
-                head.next = right;
-                right = right.next;
+                res.next = n2;
+                n2 = n2.next;
             }
-            head = head.next;
+            res = res.next;
         }
-        if(left != null){
-            head.next = left;
-        }
-        if(right != null){
-            head.next = right;
-        }
+        if(n1 != null) res.next = n1;
+        if(n2 != null) res.next = n2;
         return dummy.next;
     }
-    
 }
