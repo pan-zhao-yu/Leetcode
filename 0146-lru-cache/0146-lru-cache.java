@@ -1,59 +1,70 @@
 class LRUCache {
-    class Node{
-        int key, val;
-        Node prev, next;
-        public Node(int key, int val){
+    class Node {
+        int val, key;
+        Node next, prev;
+
+        public Node() {
+
+        }
+
+        public Node(int key, int val) {
             this.key = key;
             this.val = val;
         }
     }
 
-    HashMap<Integer, Node> map;
-    int capacity;
     Node head, tail;
+    int capacity;
+    Map<Integer, Node> map;
+
     public LRUCache(int capacity) {
-        map = new HashMap<>();
+        head = new Node();
+        tail = new Node();
         this.capacity = capacity;
-        head = new Node(0, 0);
-        tail = new Node(0, 0);
         head.next = tail;
         tail.prev = head;
+        map = new HashMap<>();
     }
-    
+
     public int get(int key) {
-        if(map.containsKey(key)){
-            Node curr = map.get(key);
-            remove(curr);
-            addFront(curr);
-            return curr.val;
+        if (map.containsKey(key)) {
+            Node temp = map.get(key);
+            //remove from list
+            temp.prev.next = temp.next;
+            temp.next.prev = temp.prev;
+            //add front
+            head.next.prev = temp;
+            temp.next = head.next;
+            temp.prev = head;
+            head.next = temp;
+            return temp.val;
         }
         return -1;
     }
-    
+
     public void put(int key, int value) {
-        if(map.containsKey(key)){
-            remove(map.get(key));
+        Node nn = new Node(key, value);
+        if (map.containsKey(key)) {
+            // remove from list and map
+            Node t = map.get(key);
+            map.remove(key);
+            t.prev.next = t.next;
+            t.next.prev = t.prev;
         }
-        Node toAdd = new Node(key, value);
-        addFront(toAdd);
-        map.put(key, toAdd);
-        if(map.size() > capacity){
-            Node toDel = tail.prev;
-            remove(toDel);
-            map.remove(toDel.key);
+        //add front list and map
+        map.put(key, nn);
+        head.next.prev = nn;
+        nn.next = head.next;
+        nn.prev = head;
+        head.next = nn;
+        map.put(key, nn);
+        if (map.size() > capacity) {
+            //pop last
+            Node remove = tail.prev;
+            tail.prev = remove.prev;
+            remove.prev.next = tail;
+            map.remove(remove.key);
         }
-    }
-
-    private void remove(Node node){
-        node.next.prev = node.prev;
-        node.prev.next = node.next;
-    }
-
-    private void addFront(Node node){
-        node.next = head.next;
-        head.next.prev = node;
-        head.next = node;
-        node.prev = head;
     }
 }
 
