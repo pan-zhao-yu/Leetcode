@@ -14,17 +14,17 @@
  * }
  */
 class Solution {
-    Integer prev = null;
+    Integer prev;
     public boolean isValidBST(TreeNode root) {
-        return inOrder(root);
+        return inorder(root);
     }
 
-    private boolean inOrder(TreeNode node){
-        boolean left = true, right = true;
-        if(node.left != null) left = inOrder(node.left);
-        if( prev != null && node.val <= prev) return false;
+    private boolean inorder(TreeNode node){
+        boolean l = true, r = true;
+        if(node.left != null) l = inorder(node.left);
+        if(prev != null && prev >= node.val) return false;
         prev = node.val;
-        if(node.right != null) right = inOrder(node.right);
-        return left && right;
+        if(node.right != null) r = inorder(node.right);
+        return l && r;         
     }
 }
