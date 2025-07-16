@@ -1,33 +1,32 @@
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- * int val;
- * TreeNode left;
- * TreeNode right;
- * TreeNode() {}
- * TreeNode(int val) { this.val = val; }
- * TreeNode(int val, TreeNode left, TreeNode right) {
- * this.val = val;
- * this.left = left;
- * this.right = right;
- * }
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
  * }
  */
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         if(root == null) return res;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
+        Deque<TreeNode> q = new ArrayDeque<>();
+        q.addFirst(root);
         while(!q.isEmpty()){
             int size = q.size();
+            res.add(q.peekLast().val);
             for(int i = 0; i < size; i++){
-                TreeNode curr = q.poll();
-                if(i == 0) res.add(curr.val);
-                if(curr.right != null) q.offer(curr.right);
-                if(curr.left != null) q.offer(curr.left);
+                TreeNode curr = q.pollLast();
+                if(curr.right != null) q.addFirst(curr.right);
+                if(curr.left != null) q.addFirst(curr.left);
             }
-            
         }
         return res;
     }
