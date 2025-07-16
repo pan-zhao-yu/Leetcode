@@ -21,15 +21,13 @@ class Solution {
         }
         return build(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, inMap);
     }
-    
-    private TreeNode build(int[] preorder, int preStart, int preEnd, 
-                           int[] inorder, int inStart, int inEnd, Map<Integer, Integer> inMap){
-        if(preStart > preEnd || inStart > inEnd) return null;
-        TreeNode root = new TreeNode(preorder[preStart]);
-        int index = inMap.get(preorder[preStart]);
-        int leftSize = index - inStart;
-        root.left = build(preorder, preStart + 1, preStart + leftSize, inorder, inStart, index - 1, inMap);
-        root.right = build(preorder, preStart + leftSize + 1, preEnd, inorder, index + 1, inEnd, inMap);
-        return root;
+    private TreeNode build(int[] pre, int ps, int pe, int[] in, int is, int ie, Map<Integer, Integer> im){
+        if(ps > pe || is > ie) return null;
+        TreeNode curr = new TreeNode(pre[ps]);
+        int index = im.get(pre[ps]);
+        int leftsize = index - is;
+        curr.left = build(pre, ps + 1, ps + leftsize, in, is, index - 1, im);
+        curr.right = build(pre, ps + leftsize + 1, pe, in, index + 1, ie, im);
+        return curr;
     }
 }
