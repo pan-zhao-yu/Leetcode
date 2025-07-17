@@ -1,33 +1,22 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
-    public int pathSum(TreeNode root, long targetSum) {
-        if(root == null) return 0;
-        int res = dfs(root, targetSum);
-        int left = pathSum(root.left, targetSum);
-        int right = pathSum(root.right, targetSum);
-        return res + left + right;
+    public int pathSum(TreeNode root, int targetSum) {
+        return (int) dfs(root, (long) targetSum);
     }
 
-    private int dfs(TreeNode node, long target){
-        if(node == null) return 0;
-        int count = 0;
-        if(node.val == target) count++;
-        int left = dfs(node.left, target - node.val);
-        int right = dfs(node.right, target - node.val);
-        return count + left + right;
+    private long dfs(TreeNode node, long targetSum) {
+        if (node == null) return 0;
+        long count = countPaths(node, targetSum);
+        count += dfs(node.left, targetSum);
+        count += dfs(node.right, targetSum);
+        return count;
+    }
+
+    private long countPaths(TreeNode node, long targetSum) {
+        if (node == null) return 0;
+        long curr = 0;
+        if ((long) node.val == targetSum) curr++;
+        curr += countPaths(node.left, targetSum - node.val);
+        curr += countPaths(node.right, targetSum - node.val);
+        return curr;
     }
 }
