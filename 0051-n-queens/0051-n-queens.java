@@ -1,47 +1,39 @@
 class Solution {
-    List<List<String>> ans;
     public List<List<String>> solveNQueens(int n) {
-        ans = new ArrayList<>();
-        dfs(n, 1, new int[n+1]);
-        return ans;
-    }
-    void dfs(int n, int idx, int[] pos){
-        if(idx > n){
-            ans.add(newStr(pos, n));
-            return;
-        }
-        for(int i = 1; i <= n; i++){
-            if(!validPos(pos, i, idx)){
-                continue;
-            }
-            pos[idx] = i;
-            dfs(n, idx+1, pos);
-            pos[idx] = 0;
-        }
-    }
-    boolean validPos(int[] pos, int i, int idx){
-        for(int j = 1; j < idx; j++){
-            if(pos[j] == i){
-                return false;
-            }
-            if(Math.abs(idx-j) == Math.abs(i-pos[j])){
-                return false;
+        List<List<String>> res = new ArrayList<>();
+        char[][] grid = new char[n][n];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                grid[i][j] = '.';
             }
         }
-        return true;
+        Set<Integer> col = new HashSet<>();
+        Set<Integer> pos = new HashSet<>();
+        Set<Integer> neg = new HashSet<>();
+        backtrack(res, grid, col, pos, neg, n, 0);
+        return res;
     }
-    List<String> newStr(int[] pos, int n){
-        List<String> path = new ArrayList();
-        for(int i = 1; i <= n; i++){
-            path.add(newStrAssi(pos[i], n));
+
+    private void backtrack(List<List<String>> res, char[][] grid, Set<Integer> col, Set<Integer> pos, Set<Integer> neg, int n, int row){
+        if(row == n){
+            List<String> temp = new ArrayList<>();
+            for(int i = 0; i < n; i++){
+                temp.add(new String(grid[i]));
+            }
+            res.add(temp);
         }
-        return path;
-    }
-    String newStrAssi(int i, int n){
-        StringBuffer sb = new StringBuffer();
-        for(int j = 1; j <= n; j++){
-            sb.append(i == j ? 'Q':'.');
+
+        for(int i = 0; i < n; i++){
+            if(col.contains(i) || pos.contains(row + i) || neg.contains(row - i)) continue;
+            grid[row][i] = 'Q';
+            col.add(i);
+            pos.add(row + i);
+            neg.add(row - i);
+            backtrack(res, grid, col, pos, neg, n, row + 1);
+            grid[row][i] = '.';
+            col.remove(i);
+            pos.remove(row + i);
+            neg.remove(row - i);
         }
-        return sb.toString();
     }
 }
