@@ -1,40 +1,19 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        int[] res = {-1, -1};
-        if (nums == null || nums.length == 0) return res;
-
-        // Find the leftmost index of target
-        int left = findBound(nums, target, true);
-        if (left == -1) return res; // If target is not found, return [-1, -1]
-
-        // Find the rightmost index of target
-        int right = findBound(nums, target, false);
-
-        res[0] = left;
-        res[1] = right;
-        return res;
-    }
-
-    private int findBound(int[] nums, int target, boolean isLeft) {
         int left = 0, right = nums.length - 1;
-        while (left <= right) {
+        while(left <= right){
             int mid = left + (right - left) / 2;
-            if (nums[mid] == target) {
-                if (isLeft) {
-                    // Narrow down to the left
-                    if (mid == 0 || nums[mid - 1] != target) return mid;
-                    right = mid - 1;
-                } else {
-                    // Narrow down to the right
-                    if (mid == nums.length - 1 || nums[mid + 1] != target) return mid;
-                    left = mid + 1;
-                }
-            } else if (nums[mid] < target) {
+            if(nums[mid] < target){
                 left = mid + 1;
-            } else {
+            }else if(nums[mid] > target){
                 right = mid - 1;
+            }else{
+            int lb = mid, rb = mid;
+                while(lb - 1 >= 0 && nums[lb] == nums[lb - 1]) lb -= 1;
+                while(rb + 1 < nums.length && nums[rb] == nums[rb + 1]) rb += 1;
+                return new int[]{lb, rb};
             }
         }
-        return -1; // Target not found
+        return new int[]{-1, -1};
     }
 }
