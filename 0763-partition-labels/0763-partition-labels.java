@@ -1,15 +1,16 @@
 class Solution {
     public List<Integer> partitionLabels(String s) {
-        Map<Character, Integer> map = new HashMap<>();
-        List<Integer> res = new ArrayList<>();
+        int[] edge = new int[26];
         for(int i = 0; i < s.length(); i++){
-            map.put((s.charAt(i)), i);
+            edge[s.charAt(i) - 'a'] = i;
         }
-        int prev = -1, max = 0;
+        List<Integer> res = new ArrayList<>();
+        int boundry = 0;
+        int prev = -1;
         for(int i = 0; i < s.length(); i++){
-            max = Math.max(max, map.get(s.charAt(i)));
-            if(i == max){
-                res.add(max - prev);
+            boundry = Math.max(boundry, edge[s.charAt(i) - 'a']);
+            if(boundry == i){
+                res.add(i - prev);
                 prev = i;
             }
         }
