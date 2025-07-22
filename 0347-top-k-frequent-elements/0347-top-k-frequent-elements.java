@@ -7,15 +7,14 @@ class Solution {
         }
         for(Map.Entry<Integer, Integer> entry : map.entrySet()){
             minHeap.add(entry);
-            if(minHeap.size() > k){
-                minHeap.poll();
-            }
+            if(minHeap.size() > k) minHeap.poll();
         }
-        int[] topK = new int[k];
-        int index = 0;
-        while(!minHeap.isEmpty()){
-            topK[index++] = minHeap.poll().getKey();        
+        int[] res = new int[minHeap.size()];
+        int index = minHeap.size() - 1;
+        while(index >= 0){
+            res[index] = minHeap.poll().getKey();
+            index--;
         }
-        return topK;
+        return res;
     }
 }
