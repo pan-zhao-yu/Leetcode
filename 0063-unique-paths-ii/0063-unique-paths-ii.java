@@ -1,38 +1,20 @@
 class Solution {
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-
-        int row = obstacleGrid.length;
-        int col = obstacleGrid[0].length;
-        // If the start or end is an obstacle, no paths exist
-        if (obstacleGrid[0][0] == 1 || obstacleGrid[row - 1][col - 1] == 1) {
-            return 0;
+        int[][] dp = new int[obstacleGrid.length][obstacleGrid[0].length];
+        for(int r = 0; r < obstacleGrid.length; r++){
+            if(obstacleGrid[r][0] == 1) break;
+            dp[r][0] = 1;
         }
-        for(int i = 0; i < row; i++){
-            for(int j = 0; j < col; j++){
-                if(obstacleGrid[i][j] == 1){
-                    obstacleGrid[i][j] = -1;
-                }
+        for(int c = 0; c < obstacleGrid[0].length; c++){
+            if(obstacleGrid[0][c] == 1) break;
+            dp[0][c] = 1;
+        }
+        for(int r = 1; r < obstacleGrid.length; r++){
+            for(int c = 1; c < obstacleGrid[0].length; c++){
+                if(obstacleGrid[r][c] == 1) continue;
+                dp[r][c] = dp[r - 1][c] + dp[r][c - 1];
             }
         }
-        for(int i = 0; i < row; i++){
-            if(obstacleGrid[i][0] == -1) break;
-            obstacleGrid[i][0] = 1;
-        }
-        for(int j = 0; j < col; j++){
-            if(obstacleGrid[0][j] == -1) break;
-            obstacleGrid[0][j] = 1;
-        }
-        
-        for(int i = 1; i < row; i++){
-            for(int j = 1; j < col; j++){
-                if(obstacleGrid[i][j] != -1){
-                    int up = Math.max(0, obstacleGrid[i - 1][j]);
-                    int left = Math.max(0, obstacleGrid[i][j - 1]);
-                    obstacleGrid[i][j] = up + left;
-                }
-                
-            }
-        }
-        return obstacleGrid[row - 1][col - 1];
+        return dp[obstacleGrid.length - 1][obstacleGrid[0].length - 1];
     }
 }
