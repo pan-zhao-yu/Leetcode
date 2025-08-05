@@ -15,20 +15,27 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
-        Map<Node, Node> map = new HashMap<>();
-        Node curr = head;
-        while(curr != null){
-            map.put(curr, new Node(curr.val));
-            curr = curr.next;
+        Node nhead = head;
+        while(nhead != null){
+            Node next = nhead.next;
+            nhead.next = new Node(nhead.val);
+            nhead.next.next = next;
+            nhead = next;
         }
-        curr = head;
-        Node res = map.get(head);
-        while(curr != null){
-            res.next = map.get(curr.next);
-            res.random = map.get(curr.random);
-            res = res.next;
-            curr = curr.next;
+        nhead = head;
+        while(nhead != null){
+            if(nhead.random != null) nhead.next.random = nhead.random.next;
+            nhead = nhead.next.next;
         }
-        return map.get(head);
+        nhead = head;
+        Node res = new Node(0);
+        Node temp = res;
+        while(nhead != null){
+            temp.next = nhead.next;
+            temp = temp.next;
+            nhead.next = temp.next;
+            nhead = nhead.next;
+        }
+        return res.next;
     }
 }
