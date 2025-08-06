@@ -10,41 +10,36 @@
  */
 class Solution {
     public ListNode sortList(ListNode head) {
-        if(head == null || head.next == null) return head;
-        ListNode left = head;
-        ListNode right = getMid(head);
-        ListNode temp = right;
-        right = right.next;
-        temp.next = null;
-        left = sortList(left);
-        right = sortList(right);
-        return sort(left, right);
-    }
-    private ListNode getMid(ListNode node){
-        ListNode slow = node;
-        ListNode fast = node.next;
-        while(fast != null && fast.next != null){
-            fast = fast.next.next;
-            slow = slow.next;
+        if(head  == null || head.next == null) return head;
+        ListNode left = head, right = head, temp = head.next;
+        while(temp != null && temp.next != null){
+            temp = temp.next.next;
+            right = right.next;
         }
-        return slow;
+        ListNode next = right.next;
+        right.next = null;
+        right = next;
+        ListNode sortedL = sortList(left);
+        ListNode sortedR = sortList(right);
+        return sort(sortedL, sortedR);
     }
 
-    private ListNode sort(ListNode n1, ListNode n2){
+    private ListNode sort(ListNode l, ListNode r){
         ListNode dummy = new ListNode();
-        ListNode res = dummy;
-        while(n1 != null && n2 != null){
-            if(n1.val < n2.val){
-                res.next = n1;
-                n1 = n1.next;
+        ListNode curr = dummy;
+        while(l != null && r != null){
+            if(l.val < r.val){
+                curr.next = l;
+                l = l.next;
             }else{
-                res.next = n2;
-                n2 = n2.next;
+                curr.next = r;
+                r = r.next;
             }
-            res = res.next;
+            curr = curr.next;
         }
-        if(n1 != null) res.next = n1;
-        if(n2 != null) res.next = n2;
+        if(l != null) curr.next = l;
+        if(r != null) curr.next = r;
         return dummy.next;
     }
+
 }
