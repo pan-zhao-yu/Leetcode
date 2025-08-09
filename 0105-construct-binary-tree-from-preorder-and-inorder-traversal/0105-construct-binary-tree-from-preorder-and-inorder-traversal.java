@@ -15,19 +15,22 @@
  */
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
+        //if (preorder == null || inorder == null || preorder.length == 0) return null;
         Map<Integer, Integer> inMap = new HashMap<>();
         for(int i = 0; i < inorder.length; i++){
             inMap.put(inorder[i], i);
         }
-        return build(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, inMap);
+        TreeNode root = new TreeNode(preorder[0]);
+        return build(inMap, preorder, inorder, 0, preorder.length - 1, 0, inorder.length - 1); 
     }
-    private TreeNode build(int[] pre, int ps, int pe, int[] in, int is, int ie, Map<Integer, Integer> im){
-        if(ps > pe || is > ie) return null;
-        TreeNode curr = new TreeNode(pre[ps]);
-        int index = im.get(pre[ps]);
-        int leftsize = index - is;
-        curr.left = build(pre, ps + 1, ps + leftsize, in, is, index - 1, im);
-        curr.right = build(pre, ps + leftsize + 1, pe, in, index + 1, ie, im);
-        return curr;
+    private TreeNode build(Map<Integer, Integer> inMap, int[] preorder, int[] inorder, int preStart, int preEnd, int inStart, int inEnd){
+        if(preStart > preEnd || inStart > inEnd) return null;
+        int val = preorder[preStart];
+        TreeNode root = new TreeNode(val);
+        int inPosition = inMap.get(val);
+        int leftSize = inPosition - inStart;
+        root.left = build(inMap, preorder, inorder, preStart + 1, preStart + leftSize, inStart, inPosition - 1);
+        root.right = build(inMap, preorder, inorder, preStart + leftSize + 1, preEnd, inPosition + 1, inEnd);
+        return root;
     }
 }
