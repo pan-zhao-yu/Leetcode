@@ -2,17 +2,15 @@ class Solution {
     public int lengthOfLIS(int[] nums) {
         int[] dp = new int[nums.length];
         Arrays.fill(dp, 1);
-        int result = 1;
+        int res = 1;
         for(int i = 1; i < nums.length; i++){
             for(int j = 0; j < i; j++){
                 if(nums[i] > nums[j]){
-                    dp[i] = Math.max(dp[j] + 1, dp[i]);
-                    result = Math.max(result, dp[i]);
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                    res = Math.max(res, dp[i]);
                 }
             }
         }
-        return result;
+        return res;
     }
 }
-//dp[i] = Math.max(dp[j] + 1, dp[i]);
-//dp[i] means the LIS starting from j ending at i
